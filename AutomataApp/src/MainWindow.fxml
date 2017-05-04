@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindowController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -64,24 +64,24 @@
                 <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" prefHeight="26.0" prefWidth="107.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="startNode" mnemonicParsing="false" prefHeight="47.0" prefWidth="60.0" text="Nodo I" />
+                        <Button fx:id="startNode" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="60.0" text="Nodo I" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <Button fx:id="endNode" mnemonicParsing="false" prefHeight="47.0" prefWidth="60.0" text="Nodo F" />
+                        <Button fx:id="endNode" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="60.0" text="Nodo F" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="53.0" prefWidth="91.0" GridPane.columnIndex="2">
                      <children>
-                        <Button fx:id="standNode" mnemonicParsing="false" prefHeight="47.0" prefWidth="60.0" text="Nodo X" />
+                        <Button fx:id="standNode" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="60.0" text="Nodo X" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
                      <children>
-                        <Button fx:id="transition" mnemonicParsing="false" prefHeight="47.0" prefWidth="60.0" text="Trans" />
+                        <Button fx:id="transition" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="60.0" text="Trans" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" />
