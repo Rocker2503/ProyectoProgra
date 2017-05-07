@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import java.awt.image.BufferedImage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -22,7 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+import javafx.scene.canvas.GraphicsContext;
 /**
  * FXML Controller class APLICACION
  *
@@ -42,18 +44,19 @@ public class MainWindowController extends Application{
     @FXML
     private Button transition;
     
-    @FXML
+//    @FXML
     private Canvas mainCanvas;
 
-    
+//    @FXML
     private GridPane rootLayout;
     
+    private GraphicsContext gc;
     private boolean isStartNode = false;
     private boolean isEndNode = false;
     private boolean isStandNode = false;
     private boolean isTransition = false;
     
-    private BufferedImage img;
+    private Image img;
     
     
     public static void main(String[] args)
@@ -68,46 +71,21 @@ public class MainWindowController extends Application{
         {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainWindowController.class.getResource("MainWindow.fxml"));
-            
             rootLayout = (GridPane) loader.load();
             
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-        
-            primaryStage.setTitle("Main Application");
-            primaryStage.show();
-            try{
-            img = ImageIO.read(new File("src/imagenes/dc6.jpg"));            
-            }
-            catch(IOException e)
-            {
-            }
             
-            rootLayout.setOnMouseClicked(new EventHandler<MouseEvent>() { 
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("apretaaa!!!!!!!!!!");
-                System.out.println("isHANDLE: " + isIsStartNode());
-//                System.out.println("getCursor: " + getStartNode().getCursor().toString());
-                if(isIsStandNode())
-                {
-                    //agregar nodo inicial, desactivar booleano y boton
-                    System.out.println("apretaaa1");
-                }
-                else if(isEndNode)
-                {
-                    //agregar nodo, desactivar booleano
-                    System.out.println("apreta222");
-                }
-                else if(isStandNode)
-                {
-                    //agregar nodo, desactivar booleano
-                }
-                else if(isTransition){
-
-                }
-            }
-        });
+            primaryStage.setTitle("Main Application");
+            mainCanvas = new Canvas(981, 435);
+//            mainCanvas.setWidth(981);
+//            mainCanvas.setWidth(435);
+            GraphicsContext gc = mainCanvas.getGraphicsContext2D();
+            
+            img = new Image("dc6.jpg");   
+            
+            rootLayout.getChildren().add(0, mainCanvas);
+            primaryStage.show();
         }
         catch(Exception e)
         {
@@ -116,12 +94,53 @@ public class MainWindowController extends Application{
     }
     
     @FXML
+    public void click(MouseEvent e)
+    {
+//        GraphicsContext gc1 = mainCanvas.getGraphicsContext2D();
+        if(isIsStartNode())
+        {
+            //agregar nodo inicial, desactivar booleano y boton
+            //LUEGO VER MOIDIFICACIONES PARA VOLVER A ACTIVARLO
+            System.out.println("apretaaa1");
+            double x = e.getX();
+            double y = e.getY();
+            System.out.println("x: " + x + " y: "+ y);
+            /*ImageView iv1 = new ImageView();
+            iv1.setImage(img);
+            iv1.setX(x);
+            iv1.setY(y);
+            iv1.setFitWidth(100);
+            iv1.setPreserveRatio(true);
+            iv1.setSmooth(true);*/
+            draw(img, x, y);
+//            GraphicsContext gc1 = metodo();
+//            gc1.drawImage(img, x, y);
+//            getGc().drawImage(img, x, y);
+            
+            setIsStartNode(false);
+//            getStartNode().setDisable(true);
+        }
+        else if(isIsEndNode())
+        {
+            //agregar nodo, desactivar booleano
+            System.out.println("apreta222");
+            setIsEndNode(false);
+        }
+        else if(isIsStandNode())
+        {
+            //agregar nodo, desactivar booleano
+            System.out.println("apreta33");
+            setIsStandNode(false);
+        }
+        else if(isIsTransition()){
+            
+        }
+    }
+    @FXML
     public void handleButtonAction(ActionEvent event) 
     {
         if(event.getSource() == this.startNode)
         {
-            System.out.println("is: " + this.isStartNode);
-            System.out.println("holi1");
             this.setIsStartNode(true);
             System.out.println("is: " + this.isStartNode);
             startNode.setCursor(Cursor.WAIT);
@@ -149,10 +168,16 @@ public class MainWindowController extends Application{
     }*/
     
     /*@FXML
-    public void initialize() {
-        this.startNode.setOnAction(this::handleButtonAction);
-        this.standNode.setOnAction(this::handleButtonAction);
+    void initialize() {
+      this.gc = mainCanvas.getGraphicsContext2D();
+          rootLayout.getChildren().add(mainCanvas);
     }*/
+    
+    @FXML
+    public void draw(Image image, double x, double y) {
+        System.out.println("sibuja!");
+        gc.drawImage(img, x, y);
+    }
 
     /*@Override
     public void mouseClicked(MouseEvent e) {
@@ -212,6 +237,10 @@ public class MainWindowController extends Application{
         this.isEndNode = isEndNode;
     }
 
+    public GridPane getRootLayout() {
+        return rootLayout;
+    }
+
     public boolean isIsStandNode() {
         return isStandNode;
     }
@@ -258,6 +287,10 @@ public class MainWindowController extends Application{
 
     public void setTransition(Button transition) {
         this.transition = transition;
+    }
+
+    public GraphicsContext getGc() {
+        return gc;
     }
     
         
