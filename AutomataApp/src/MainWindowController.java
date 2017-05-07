@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.awt.Color;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +24,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 /**
  * FXML Controller class APLICACION
  *
@@ -58,7 +58,6 @@ public class MainWindowController extends Application{
     
     private Image img;
     
-    
     public static void main(String[] args)
     {
         launch(args);
@@ -77,12 +76,21 @@ public class MainWindowController extends Application{
             primaryStage.setScene(scene);
             
             primaryStage.setTitle("Main Application");
+            //agregando a la mala
             mainCanvas = new Canvas(981, 435);
 //            mainCanvas.setWidth(981);
 //            mainCanvas.setWidth(435);
-            GraphicsContext gc = mainCanvas.getGraphicsContext2D();
-            
+            this.gc = mainCanvas.getGraphicsContext2D();
             img = new Image("dc6.jpg");   
+            
+            /*mainCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    System.out.println("Clickea eventt");
+                    gc.drawImage(img, event.getX(), event.getY());
+                }
+            });*/
+//            gc.drawImage(img, 20, 270);
             
             rootLayout.getChildren().add(0, mainCanvas);
             primaryStage.show();
@@ -173,53 +181,11 @@ public class MainWindowController extends Application{
           rootLayout.getChildren().add(mainCanvas);
     }*/
     
-    @FXML
+//    @FXML
     public void draw(Image image, double x, double y) {
         System.out.println("sibuja!");
-        gc.drawImage(img, x, y);
+        getGc().drawImage(img, x, y);
     }
-
-    /*@Override
-    public void mouseClicked(MouseEvent e) {
-        
-        if(isStartNode)
-        {
-            //agregar nodo inicial, desactivar booleano y boton
-            System.out.println("apretaaa1");
-        }
-        else if(isEndNode)
-        {
-            //agregar nodo, desactivar booleano
-            System.out.println("apreta222");
-        }
-        else if(isStandNode)
-        {
-            //agregar nodo, desactivar booleano
-        }
-        else if(isTransition){
-            
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
 
     public boolean isIsStartNode() {
         return isStartNode;
@@ -292,9 +258,5 @@ public class MainWindowController extends Application{
     public GraphicsContext getGc() {
         return gc;
     }
-    
-        
-    
-    
     
 }
